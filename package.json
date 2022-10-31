@@ -1,0 +1,14 @@
+{
+  "name": "guild",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "@guildxyz/sdk": "^1.1.1",
+    "@types/node": "^18.11.7",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
