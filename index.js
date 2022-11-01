@@ -15,6 +15,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const fs_1 = __importDefault(require("fs"));
+const Cryptr = require('cryptr');
+const cryptr = new Cryptr(process.env.ENCRYPT_WORD);
 const sdk_1 = require("@guildxyz/sdk");
 const ethers_1 = require("ethers");
 const axios_1 = __importDefault(require("axios"));
@@ -24,7 +26,7 @@ const wallets = JSON.parse(file);
 (() => __awaiter(void 0, void 0, void 0, function* () {
     for (let i = 0; i < wallets.length; i++) {
         console.log(`Initializing wallet ${i + 1} of ${wallets.length}`);
-        const privateKey = wallets[i].privateKey;
+        const privateKey = process.env.ENCRYPTED ? cryptr.decrypt(wallets[i].privateKey) : wallets[i].privateKey;
         const wallet = new ethers_1.ethers.Wallet(privateKey);
         const sign = (signableMessage) => wallet.signMessage(signableMessage);
         const res = yield sdk_1.user.join(Number(process.env.GUILD_ID), wallet.address, sign);
